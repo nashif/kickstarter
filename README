@@ -1,0 +1,16 @@
+Install cheetah (http://www.cheetahtemplate.org/) templating system, PyYAML.
+
+run make
+then run:
+python kickstarter.py -c <images.yaml> -r <repos.yaml>
+
+Example:
+ python kickstarter.py  --configs configurations.yaml --repos repos.yaml 
+
+Repo file:
+This file contains a list of repositories to be used in the kickstart files
+
+Configurations file:
+This file has the definition of configurations. The Configurations inherit 
+from platforms first then from the DEFAULT section. The image configurations
+override the all other settings (in DEFAULT and platform sections).

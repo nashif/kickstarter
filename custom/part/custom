@@ -1,0 +1,2 @@
+part / --size 1300 --ondisk sda --grow --maxsize=1450 --fstype=ext3
+#part /home --size 1000  --grow --maxsize=1450 --ondisk sdb --fstype=ext3

@@ -1,0 +1,7 @@
+Repositories:
+    -   Name: meego-core-1.0
+        Url:  http://repo.meego.com/MeeGo/release/1.0/core/repo/ia32/os/
+    -   Name: meego-netbook-1.0
+        Url:  http://repo.meego.com
+    -   Name: adobe
+        Url:  http://linuxdownload.adobe.com/linux/i386/

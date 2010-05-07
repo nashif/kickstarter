@@ -1,0 +1,68 @@
+Default:
+    Active: True
+    Language: en_US.UTF-8
+    Keyboard: us
+    PackageArgs:
+    SaveRepos:  False
+    Timezone: America/New_York
+    RootPass: meego
+    DefaultUser: meego
+    DefaultUserPass: meego
+    PartSize: 1900
+    PostScripts:
+        - rpm
+    Groups:
+        - MeeGo Core
+        - X Window System
+
+CORE:
+    PartSize: 1000
+    BootloaderAppend: "quiet"
+    BootloaderTimeout: 0
+    PostScripts:
+        - cleanup
+    Repos:
+        - meego-core-1.0
+    Kernel: kernel-netbook
+
+NETBOOK:
+    PartSize: 1900
+    BootloaderAppend: "quiet"
+    BootloaderTimeout: 0
+    PostScripts:
+        - cleanup
+        - flash
+    Groups:
+        - X for Netbooks
+        - Virtual Machine Support
+        - Printing
+        - Games
+    Kernel: kernel-netbook
+    Repos:
+        - adobe
+        - meego-core-1.0
+        - meego-netbook-1.0
+    PostScripts:
+        - prelink
+    ExtraPackages:
+        - gdb
+        - flash-plugin
+        - adobe-release
+Configurations:
+    -   Name: MeeGo Core 1.0 
+        Active: True
+        Baseline: 1.0
+        Platform: CORE
+        FileName: core
+        Desktop:
+    -   Name: MeeGo Netbook/Nettop 1.0 
+        Active: True
+        Baseline: 1.0
+        Platform: NETBOOK
+        Desktop: meego
+        FileName: netbook
+        Groups:
+            - MeeGo Netbook Desktop
+        Repos:
+            - meego-core-1.0
+            - meego-netbook-1.0
