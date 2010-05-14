@@ -12,8 +12,8 @@ all: $(TEMPLATE_MODS)
 	$(CHEETAH) compile --settings='useStackFrames=False' $<
 
 
-ks: $(TEMPLATES) ../images.yaml 
-	python kickstarter.py -m ../images.yaml
+ks: $(TEMPLATES) configurations.yaml repos.yaml
+	python kickstarter.py -c configurations.yaml -r repos.yaml
 
 clean:
 	rm -f $(TEMPLATE_MODS)

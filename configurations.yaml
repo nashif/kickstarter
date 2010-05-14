@@ -42,6 +42,7 @@ NETBOOK:
         - adobe
         - meego-core-1.0
         - meego-netbook-1.0
+        - meego-extra-1.0
     PostScripts:
         - prelink
     ExtraPackages:
