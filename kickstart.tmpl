@@ -6,7 +6,6 @@
 lang ${metadata.Language}
 keyboard ${metadata.Keyboard}
 timezone --utc ${metadata.Timezone}
-auth --useshadow --enablemd5
 #if $metadata.Part == ""
 part / --size ${metadata.PartSize} --ondisk sda --fstype=ext3
 #else
@@ -15,7 +14,9 @@ ${metadata.Part}
 rootpw ${metadata.RootPass} 
 xconfig --startxonboot
 bootloader --timeout=${metadata.BootloaderTimeout} --append="${metadata.BootloaderAppend}"
+#if $metadata.has_key("Desktop")
 desktop --autologinuser=${metadata.DefaultUser}  --defaultdesktop=${metadata.Desktop} 
+#end if
 user --name ${metadata.DefaultUser}  --groups audio,video --password ${metadata.DefaultUserPass} 
 
 #set $save = ""

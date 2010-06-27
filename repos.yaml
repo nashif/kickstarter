@@ -1,9 +1,9 @@
 Repositories:
     -   Name: meego-core-1.0
-        Url:  http://repo.meego.com/MeeGo/releases/1.0/core/repos/ia32/packages
+        Url:  http://repo.meego.com/MeeGo/releases/1.0/core/repos/@ARCH@/packages
     -   Name: meego-extra-1.0
-        Url:  http://repo.meego.com/MeeGo/releases/1.0/extra/repos/ia32/packages
+        Url:  http://repo.meego.com/MeeGo/releases/1.0/extra/repos/@ARCH@/packages
     -   Name: meego-netbook-1.0
-        Url:  http://repo.meego.com/MeeGo/releases/1.0/netbook/repos/ia32/packages
+        Url:  http://repo.meego.com/MeeGo/releases/1.0/netbook/repos/@ARCH@/packages
     -   Name: adobe
         Url:  http://linuxdownload.adobe.com/linux/i386/

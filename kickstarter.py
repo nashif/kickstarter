@@ -41,7 +41,7 @@ class KSWriter():
             if plat.has_key(l) and plat[l]:
                 full = full + plat[l]
             if img.has_key(l) and img[l]:
-                full = full + img[l]                    
+                fll = full + img[l]                    
             lvald[l] = set(full)
             #print full
         conf.update(lvald)
@@ -71,8 +71,20 @@ class KSWriter():
         conf['NoChroot'] = nochrootscript
         return conf
 
-    def process_files(self,  meta,  r):
-        nameSpace = {'metadata': meta,  'repos': r}
+    def process_files(self,  meta,  repos):
+        new_repos = []
+        #print repos
+        #print meta
+        if meta.has_key("Architecture") and  meta['Architecture']:
+            for repo in repos:
+                r = {}
+                r['Name'] = repo['Name']
+                r['Url'] = repo['Url'].replace("@ARCH@", meta['Architecture'])
+                new_repos.append(r)
+        else:
+            new_repos = repos
+                
+        nameSpace = {'metadata': meta,  'repos': new_repos}
         t = kickstart(searchList=[nameSpace])
         a = str(t)
         if meta.has_key('FileName') and meta['FileName']:

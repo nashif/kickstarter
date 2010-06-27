@@ -23,8 +23,6 @@ CORE:
         - cleanup
     Repos:
         - meego-core-1.0
-    Kernel: kernel-netbook
-
 NETBOOK:
     PartSize: 1900
     BootloaderAppend: "quiet"
@@ -49,21 +47,28 @@ NETBOOK:
         - gdb
         - flash-plugin
         - adobe-release
+    Architecture: ia32
 Configurations:
     -   Name: MeeGo Core 1.0 
         Active: True
         Baseline: 1.0
         Platform: CORE
-        FileName: core
+        FileName: core-ia32
+        Kernel: kernel-netbook
+        Architecture: ia32
+    -   Name: MeeGo Core 1.0 N900
+        Active: True
+        Baseline: 1.0
+        Platform: CORE
+        FileName: core-armv7l-n900
+        Kernel: kernel-n900
         Desktop:
+        Architecture: armv7l
     -   Name: MeeGo Netbook/Nettop 1.0 
         Active: True
         Baseline: 1.0
         Platform: NETBOOK
         Desktop: meego
-        FileName: netbook
+        FileName: netbook-ia32-default
         Groups:
             - MeeGo Netbook Desktop
-        Repos:
-            - meego-core-1.0
-            - meego-netbook-1.0
