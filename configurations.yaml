@@ -3,7 +3,7 @@ Default:
     Language: en_US.UTF-8
     Keyboard: us
     PackageArgs:
-    SaveRepos:  False
+    SaveRepos:  True
     Timezone: America/New_York
     RootPass: meego
     DefaultUser: meego
@@ -13,7 +13,7 @@ Default:
         - rpm
     Groups:
         - MeeGo Core
-        - X Window System
+        - Minimal MeeGo X Window System
 
 CORE:
     PartSize: 1000
