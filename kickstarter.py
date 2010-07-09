@@ -51,7 +51,7 @@ class KSWriter():
             if plat.has_key(l) and plat[l]:
                 full = full + plat[l]
             if img.has_key(l) and img[l]:
-                fll = full + img[l]                    
+                full = full + img[l]                    
             lvald[l] = set(full)
             #print full
         conf.update(lvald)

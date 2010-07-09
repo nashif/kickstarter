@@ -21,8 +21,6 @@ CORE:
     BootloaderTimeout: 0
     PostScripts:
         - cleanup
-    Repos:
-        - meego-core-1.0
 NETBOOK:
     PartSize: 1900
     BootloaderAppend: "quiet"
@@ -36,11 +34,6 @@ NETBOOK:
         - Printing
         - Games
     Kernel: kernel-netbook
-    Repos:
-        - adobe
-        - meego-core-1.0
-        - meego-netbook-1.0
-        - meego-extra-1.0
     PostScripts:
         - prelink
     ExtraPackages:
@@ -58,7 +51,7 @@ Configurations:
         Kernel: kernel-netbook
         Architecture: ia32
         Repos:
-            - meego-core-daily
+            - meego-core-testing
     -   Name: MeeGo Core N900
         Active: True
         Baseline: "1.0.80"
@@ -68,7 +61,7 @@ Configurations:
         Desktop:
         Architecture: armv7l
         Repos:
-            - meego-core-daily
+            - meego-core-testing
     -   Name: MeeGo Netbook/Nettop
         Active: True
         Baseline: "1.0.80"
@@ -78,8 +71,9 @@ Configurations:
         Groups:
             - MeeGo Netbook Desktop
         Repos:
-            - meego-core-daily
-            - meego-netbook-daily
+            - meego-core-testing
+            - meego-netbook-testing
+            - adobe
     -   Name: MeeGo Core
         Active: True
         Baseline: "1.0.80"
@@ -110,6 +104,7 @@ Configurations:
         Repos:
             - meego-core-daily
             - meego-netbook-daily
+            - adobe
     -   Name: MeeGo Core 1.0 
         Active: True
         Baseline: "1.0"
@@ -141,3 +136,4 @@ Configurations:
             - meego-core-1.0
             - meego-netbook-1.0
             - meego-extra-1.0
+            - adobe
