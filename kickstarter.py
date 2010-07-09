@@ -9,6 +9,16 @@ import copy
 import time
 import optparse
 from time import gmtime, strftime
+import errno
+
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc: # Python >2.5
+        if exc.errno == errno.EEXIST:
+            pass
+        else: raise
+
 
 class KSWriter():
     def __init__(self,  im, rep, out):
@@ -88,7 +98,12 @@ class KSWriter():
         t = kickstart(searchList=[nameSpace])
         a = str(t)
         if meta.has_key('FileName') and meta['FileName']:
-            f = open("%s/%s.ks" %( self.outdir, meta['FileName'] ), 'w')
+            f = None
+            if meta.has_key("Baseline"):
+                mkdir_p(meta['Baseline'])
+                f = open("%s/%s/%s.ks" %( self.outdir, meta['Baseline'],  meta['FileName'] ), 'w')
+            else:
+                f = open("%s/%s.ks" %( self.outdir, meta['FileName'] ), 'w')
             f.write(a)
             f.close()
 

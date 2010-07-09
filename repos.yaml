@@ -5,5 +5,17 @@ Repositories:
         Url:  http://repo.meego.com/MeeGo/releases/1.0/extra/repos/@ARCH@/packages
     -   Name: meego-netbook-1.0
         Url:  http://repo.meego.com/MeeGo/releases/1.0/netbook/repos/@ARCH@/packages
+    -   Name: meego-core-testing
+        Url:  http://download.meego.com/testing/core/repos/@ARCH@/packages
+    -   Name: meego-netbook-testing
+        Url:  http://download.meego.com/testing/netbook/repos/@ARCH@/packages
+    -   Name: meego-handset-testing
+        Url:  http://download.meego.com/testing/handset/repos/@ARCH@/packages
+    -   Name: meego-core-daily
+        Url:  http://repo.meego.com/MeeGo/builds/trunk/daily/core/repos/@ARCH@/packages
+    -   Name: meego-netbook-daily
+        Url:  http://repo.meego.com/MeeGo/builds/trunk/daily/netbook/repos/@ARCH@/packages
+    -   Name: meego-handset-daily
+        Url:  http://repo.meego.com/MeeGo/builds/trunk/daily/handset/repos/@ARCH@/packages
     -   Name: adobe
         Url:  http://linuxdownload.adobe.com/linux/i386/
