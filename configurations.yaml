@@ -63,6 +63,7 @@ Configurations:
         Repos:
             - meego-core-testing
     -   Name: MeeGo Netbook/Nettop
+        PartSize: 2900
         Active: True
         Baseline: "1.0.80"
         Platform: NETBOOK
@@ -94,6 +95,7 @@ Configurations:
         Repos:
             - meego-core-daily
     -   Name: MeeGo Netbook/Nettop
+        PartSize: 2900
         Active: True
         Baseline: "1.0.80"
         Platform: NETBOOK
