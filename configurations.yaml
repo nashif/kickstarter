@@ -25,12 +25,27 @@ CORE:
         - MeeGo X Window System
     NoChrootScripts:
         - buildname
+HANDSET:
+    PartSize: 1700
+    BootloaderAppend: "ro pci=noearly console=tty1 console=ttyS0 console=ttyMFD2 earlyprintk=mrst loglevel=8 s0ix_latency=160"
+    BootloaderTimeout: 2
+    Groups:
+        - X for Netbooks
+        - Virtual Machine Support
+        - Printing
+        - Games
+        - MeeGo Netbook Desktop
+    Kernel: kernel
+    PostScripts:
+        - prelink
+        - cleanup
+    NoChrootScripts:
+        - buildname
+    Architecture: ia32
 NETBOOK:
-    PartSize: 1900
+    PartSize: 3000
     BootloaderAppend: "quiet"
     BootloaderTimeout: 0
-    PostScripts:
-        - cleanup
     Groups:
         - X for Netbooks
         - Virtual Machine Support
