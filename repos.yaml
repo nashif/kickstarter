@@ -1,21 +1,17 @@
 Repositories:
-    -   Name: meego-core-1.0
-        Url:  http://repo.meego.com/MeeGo/releases/1.0/core/repos/@ARCH@/packages
-    -   Name: meego-extra-1.0
-        Url:  http://repo.meego.com/MeeGo/releases/1.0/extra/repos/@ARCH@/packages
-    -   Name: meego-netbook-1.0
-        Url:  http://repo.meego.com/MeeGo/releases/1.0/netbook/repos/@ARCH@/packages
-    -   Name: meego-core-testing
+    -   Name: core-testing
         Url:  http://download.meego.com/testing/core/repos/@ARCH@/packages
-    -   Name: meego-netbook-testing
+    -   Name: netbook-testing
         Url:  http://download.meego.com/testing/netbook/repos/@ARCH@/packages
-    -   Name: meego-handset-testing
+    -   Name: handset-testing
         Url:  http://download.meego.com/testing/handset/repos/@ARCH@/packages
-    -   Name: meego-core-daily
-        Url:  http://repo.meego.com/MeeGo/builds/trunk/daily/core/repos/@ARCH@/packages
-    -   Name: meego-netbook-daily
-        Url:  http://repo.meego.com/MeeGo/builds/trunk/daily/netbook/repos/@ARCH@/packages
-    -   Name: meego-handset-daily
-        Url:  http://repo.meego.com/MeeGo/builds/trunk/daily/handset/repos/@ARCH@/packages
-    -   Name: adobe
-        Url:  http://linuxdownload.adobe.com/linux/i386/
+    -   Name: core
+        Url:  http://repo.meego.com/MeeGo/builds/@RELEASE@/@BUILD_ID@/core/repos/@ARCH@/packages
+    -   Name: netbook
+        Url:  http://repo.meego.com/MeeGo/builds/@RELEASE@/@BUILD_ID@/netbook/repos/@ARCH@/packages
+    -   Name: handset
+        Url:  http://repo.meego.com/MeeGo/builds/@RELEASE@/@BUILD_ID@/handset/repos/@ARCH@/packages
+    -   Name: ivi
+        Url:  http://repo.meego.com/MeeGo/builds/@RELEASE@/@BUILD_ID@/ivi/repos/@ARCH@/packages
+    -   Name: non-oss
+        Url:  http://repo.meego.com/MeeGo/builds/@RELEASE@/@BUILD_ID@/non-oss/repos/@ARCH@/packages

@@ -21,7 +21,7 @@ user --name ${metadata.DefaultUser}  --groups audio,video --password ${metadata.
 
 #set $save = ""
 #if $metadata.SaveRepos
-#set $save = "--save"
+#set $save = "--save --debuginfo --source --gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-meego"
 #end if
 #for $r in $metadata.Repos
 #for $rr in $repos

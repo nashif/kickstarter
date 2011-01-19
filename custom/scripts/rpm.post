@@ -1,9 +1,7 @@
 # work around for poor key import UI in PackageKit
 rm -f /var/lib/rpm/__db*
 rpm --rebuilddb
-if [ -f /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux ]; then
-    rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
-fi
+
 if [ -f /etc/pki/rpm-gpg/RPM-GPG-KEY-meego ]; then
     rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-meego
 fi

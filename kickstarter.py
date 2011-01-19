@@ -90,6 +90,7 @@ class KSWriter():
                 r = {}
                 r['Name'] = repo['Name']
                 r['Url'] = repo['Url'].replace("@ARCH@", meta['Architecture'])
+		r['Url'] = repo['Url'].replace("@RELEASE@", meta['Baseline'])
                 new_repos.append(r)
         else:
             new_repos = repos

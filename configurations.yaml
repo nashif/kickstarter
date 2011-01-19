@@ -13,7 +13,7 @@ Default:
         - rpm
     Groups:
         - MeeGo Core
-        - Minimal MeeGo X Window System
+        - MeeGo Compliance
 
 CORE:
     PartSize: 1000
@@ -21,121 +21,82 @@ CORE:
     BootloaderTimeout: 0
     PostScripts:
         - cleanup
+    Groups:
+        - MeeGo X Window System
+    NoChrootScripts:
+        - buildname
 NETBOOK:
     PartSize: 1900
     BootloaderAppend: "quiet"
     BootloaderTimeout: 0
     PostScripts:
         - cleanup
-        - flash
     Groups:
         - X for Netbooks
         - Virtual Machine Support
         - Printing
         - Games
-    Kernel: kernel-netbook
+        - MeeGo Netbook Desktop
+    Kernel: kernel
     PostScripts:
         - prelink
-    ExtraPackages:
-        - gdb
-        - flash-plugin
-        - adobe-release
+        - cleanup
+    NoChrootScripts:
+        - buildname
     Architecture: ia32
     
 Configurations:
     -   Name: MeeGo Core
         Active: True
-        Baseline: "1.0.80"
+        Baseline: "1.1.80"
         Platform: CORE
         FileName: core-ia32-testing
         Kernel: kernel-netbook
         Architecture: ia32
         Repos:
-            - meego-core-testing
+            - core-testing
     -   Name: MeeGo Core N900
         Active: True
-        Baseline: "1.0.80"
+        Baseline: "1.1.80"
         Platform: CORE
         FileName: core-armv7l-n900-testing
         Kernel: kernel-n900
         Desktop:
         Architecture: armv7l
         Repos:
-            - meego-core-testing
+            - core-testing
     -   Name: MeeGo Netbook/Nettop
-        PartSize: 2900
+        PartSize: 3000
         Active: True
-        Baseline: "1.0.80"
+        Baseline: "1.1.80"
         Platform: NETBOOK
         Desktop: meego
-        FileName: netbook-ia32-testing
+        FileName: netbook-ia32
         Groups:
             - MeeGo Netbook Desktop
+            - Base Double Byte IME Support
+            - MeeGo Base Development
         Repos:
-            - meego-core-testing
-            - meego-netbook-testing
-            - adobe
+            - core
+            - netbook
+        ExtraPackages:
+            - chromium
     -   Name: MeeGo Core
         Active: True
-        Baseline: "1.0.80"
+        Baseline: "1.1.80"
         Platform: CORE
         FileName: core-ia32
-        Kernel: kernel-netbook
+        Kernel: kernel
         Architecture: ia32
         Repos:
-            - meego-core-daily
+            - core
     -   Name: MeeGo Core N900
         Active: True
-        Baseline: "1.0.80"
+        Baseline: "1.1.80"
         Platform: CORE
         FileName: core-armv7l-n900
-        Kernel: kernel-n900
+        Kernel: kernel-adaptation-n900
         Desktop:
         Architecture: armv7l
         Repos:
-            - meego-core-daily
-    -   Name: MeeGo Netbook/Nettop
-        PartSize: 2900
-        Active: True
-        Baseline: "1.0.80"
-        Platform: NETBOOK
-        Desktop: meego
-        FileName: netbook-ia32-default
-        Groups:
-            - MeeGo Netbook Desktop
-        Repos:
-            - meego-core-daily
-            - meego-netbook-daily
-            - adobe
-    -   Name: MeeGo Core 1.0 
-        Active: True
-        Baseline: "1.0"
-        Platform: CORE
-        FileName: core-ia32
-        Kernel: kernel-netbook
-        Architecture: ia32
-        Repos:
-            - meego-core-1.0
-    -   Name: MeeGo Core 1.0 N900
-        Active: True
-        Baseline: "1.0"
-        Platform: CORE
-        FileName: core-armv7l-n900
-        Kernel: kernel-n900
-        Desktop:
-        Architecture: armv7l
-        Repos:
-            - meego-core-1.0
-    -   Name: MeeGo Netbook/Nettop 1.0 
-        Active: True
-        Baseline: "1.0"
-        Platform: NETBOOK
-        Desktop: meego
-        FileName: netbook-ia32-default
-        Groups:
-            - MeeGo Netbook Desktop
-        Repos:
-            - meego-core-1.0
-            - meego-netbook-1.0
-            - meego-extra-1.0
-            - adobe
+            - core
