@@ -2,6 +2,14 @@
 VERSION = $(shell cat VERSION)
 NAME=kickstarter
 TAGVER = $(shell cat VERSION | sed -e "s/\([0-9\.]*\).*/\1/")
+
+ifeq ($(VERSION), $(TAGVER))
+        TAG = $(TAGVER)
+else
+        TAG = "HEAD"
+endif
+
+
 PYTHON=python
 CHEETAH=cheetah
 TEMPLATES=$(wildcard *.tmpl)
