@@ -6,6 +6,7 @@ python kickstarter.py -c <images.yaml> -r <repos.yaml>
 
 Example:
  python kickstarter.py  --configs configurations.yaml --repos repos.yaml 
+ or run 'make ks'
 
 Repo file:
 This file contains a list of repositories to be used in the kickstart files
