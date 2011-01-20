@@ -107,6 +107,25 @@ Configurations:
             - netbook
         ExtraPackages:
             - chromium
+    -   Name: MeeGo Handset N900 Development
+        Part: n900-devel
+        Active: True
+        Baseline: "1.1.80"
+        Platform: N900
+        FileName: handset-armv7l-n900-devel
+        Architecture: armv7l
+        Desktop: DUI
+        Session: "/usr/bin/mcompositor"
+        Groups:
+            - Nokia N900 Support
+            - Nokia N900 Proprietary Support
+        ExtraPackages:
+            - xorg-x11-utils-xev
+            - u-boot-tools
+        PostScripts:
+            - inittab-n900
+            - fstab-n900
+            - u-boot
     -   Name: MeeGo Handset N900
         Active: True
         Baseline: "1.1.80"
