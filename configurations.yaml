@@ -71,6 +71,21 @@ MFLD:
         - core
         - handset
         - non-oss
+IVI:
+    PartSize: 2200
+    Bootloader: True
+    BootloaderAppend: "quiet"
+    BootloaderTimeout: 0
+    Session: "/usr/bin/startivi"
+    Groups:
+        - X for IVI
+    Kernel: kernel-adaptation-intel-automotive
+    PostScripts:
+        - prelink
+        - cleanup
+    NoChrootScripts:
+        - buildname
+    Architecture: ia32
 NETBOOK:
     PartSize: 3000
     Bootloader: True
@@ -91,6 +106,37 @@ NETBOOK:
     Architecture: ia32
     
 Configurations:
+    -   Name: MeeGo IVI Development
+        Active: True
+        Baseline: "1.1.80"
+        Platform: IVI
+        Desktop: X-IVI
+        FileName: ivi-ia32
+        Groups:
+            - MeeGo IVI Desktop
+            - MeeGo Base Development
+            - MeeGo IVI Applications
+            - Development Tools
+        Repos:
+            - core
+            - ivi
+        ExtraPackages:
+            - mesa-libEGL
+    -   Name: MeeGo IVI
+        Active: True
+        Baseline: "1.1.80"
+        Platform: IVI
+        Desktop: X-IVI
+        FileName: ivi-ia32
+        Groups:
+            - MeeGo IVI Desktop
+            - MeeGo Base Development
+            - MeeGo IVI Applications
+        Repos:
+            - core
+            - ivi
+        ExtraPackages:
+            - mesa-libEGL
     -   Name: MeeGo Netbook/Nettop
         PartSize: 3000
         Active: True
@@ -119,6 +165,7 @@ Configurations:
         Groups:
             - Nokia N900 Support
             - Nokia N900 Proprietary Support
+            - Development Tools
         ExtraPackages:
             - xorg-x11-utils-xev
             - u-boot-tools
@@ -162,6 +209,15 @@ Configurations:
             - kernel-handset
             - kboot
             - serial-mfld
+    -   Name: MeeGo Handset MTF Pinetrail
+        Active: True
+        Baseline: "1.1.80"
+        Platform: MFLD
+        FileName: handset-ia32-pinetrail-mtf
+        Kernel: kernel
+        Architecture: ia32
+        Desktop: DUI
+        Session: "/usr/bin/mcompositor"
     -   Name: MeeGo Handset MTF
         Active: True
         Baseline: "1.1.80"
