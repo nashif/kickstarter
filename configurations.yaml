@@ -126,6 +126,23 @@ Configurations:
             - fstab-n900
             - u-boot
 
+    -   Name: MeeGo Handset MTF Development
+        PartSize: 2200
+        Active: True
+        Baseline: "1.1.80"
+        Platform: MFLD
+        FileName: handset-ia32-mtf-devel
+        Kernel: kernel-adaptation-medfield
+        Architecture: ia32
+        Desktop: DUI
+        Session: "/usr/bin/mcompositor"
+        Groups:
+            - Moorestown Support
+            - Development Tools
+        PostScripts:
+            - kernel-handset
+            - kboot
+            - serial-mfld
     -   Name: MeeGo Handset MTF
         Active: True
         Baseline: "1.1.80"
