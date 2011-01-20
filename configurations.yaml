@@ -26,7 +26,7 @@ CORE:
     NoChrootScripts:
         - buildname
 N900:
-    PartSize: 1700
+    Part: n900
     BootloaderTimeout: 
     BootloaderAppend: 
     Groups:
@@ -39,11 +39,10 @@ N900:
         - MeeGo Base Development
     Kernel: kernel-adaptation-n900
     PostScripts:
-        - prelink
         - cleanup
     NoChrootScripts:
         - buildname
-    Architecture: ia32
+    Architecture: armv7l
     Repos:
         - core
         - handset

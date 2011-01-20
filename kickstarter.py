@@ -71,10 +71,11 @@ class KSWriter():
             f.close()
 
         ptab = ""
-        if img.has_key("Part"):
-            f = open("./custom/part/%s" %img['Part'] )
-            ptab = f.read()
-            f.close()  
+	for g in [ plat, img ]:
+	    if g.has_key("Part"):
+		f = open("./custom/part/%s" %g['Part'] )
+		ptab = f.read()
+		f.close()  
             
         conf['Part'] = ptab
         conf['Post'] = postscript
