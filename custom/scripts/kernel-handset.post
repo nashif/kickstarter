@@ -1,0 +1,20 @@
+reate Initrd if it does not exist and create symlinks for bzImage and initrd for kboot autoboot
+echo "ro pci=noearly console=tty1 console=ttyS0 console=ttyMFD2 earlyprintk=mrst loglevel=8 s0ix_latency=160" > /boot/kboot.cmdline
+
+echo "Checking for kernel......."
+Kernel_Name=`ls /boot | grep vmlinuz`
+if [ -f /boot/$Kernel_Name ]; then
+        Kernel_Ver=`echo $Kernel_Name | sed s/vmlinuz-//`
+        if [ -f /boot/initrd* ]; then
+                echo "Initrd exists" > /dev/null
+        else
+                /usr/libexec/mkmrstinitrd /boot/initrd-$Kernel_Ver.img $Kernel_Ver
+        fi
+        #Create Symlinks
+        cd /boot
+        ln -s $Kernel_Name bzImage
+        ln -s initrd-$Kernel_Ver.img initrd
+        ln -s kboot.cmdline cmdline
+else
+        echo "No Kernels were found"
+fi

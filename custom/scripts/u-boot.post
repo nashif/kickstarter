@@ -1,0 +1,4 @@
+
+
+# Create the /boot/uImage for u-boot support.
+mkimage -A arm -O linux -T kernel -C none -a 80008000 -e 80008000 -n vmlinuz -d /boot/vmlinuz* /boot/uImage

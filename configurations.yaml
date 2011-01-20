@@ -4,7 +4,7 @@ Default:
     Keyboard: us
     PackageArgs:
     SaveRepos:  True
-    Timezone: America/New_York
+    Timezone: America/Los_Angeles
     RootPass: meego
     DefaultUser: meego
     DefaultUserPass: meego
@@ -25,16 +25,42 @@ CORE:
         - MeeGo X Window System
     NoChrootScripts:
         - buildname
-HANDSET:
+N900:
+    PartSize: 1700
+    BootloaderTimeout: 
+    BootloaderAppend: 
+    Groups:
+        - MeeGo Core
+        - Minimal MeeGo X Window System
+        - X for Handsets 
+        - MeeGo Compliance
+        - MeeGo Handset Desktop
+        - MeeGo Handset Applications
+        - MeeGo Base Development
+    Kernel: kernel-adaptation-n900
+    PostScripts:
+        - prelink
+        - cleanup
+    NoChrootScripts:
+        - buildname
+    Architecture: ia32
+    Repos:
+        - core
+        - handset
+        - non-oss
+MFLD:
     PartSize: 1700
     BootloaderAppend: "ro pci=noearly console=tty1 console=ttyS0 console=ttyMFD2 earlyprintk=mrst loglevel=8 s0ix_latency=160"
     BootloaderTimeout: 2
+    Bootloader: True
     Groups:
-        - X for Netbooks
-        - Virtual Machine Support
-        - Printing
-        - Games
-        - MeeGo Netbook Desktop
+        - MeeGo Core
+        - Minimal MeeGo X Window System
+        - X for Handsets 
+        - MeeGo Compliance
+        - MeeGo Handset Desktop
+        - MeeGo Handset Applications
+        - MeeGo Base Development
     Kernel: kernel
     PostScripts:
         - prelink
@@ -42,8 +68,13 @@ HANDSET:
     NoChrootScripts:
         - buildname
     Architecture: ia32
+    Repos:
+        - core
+        - handset
+        - non-oss
 NETBOOK:
     PartSize: 3000
+    Bootloader: True
     BootloaderAppend: "quiet"
     BootloaderTimeout: 0
     Groups:
@@ -61,25 +92,6 @@ NETBOOK:
     Architecture: ia32
     
 Configurations:
-    -   Name: MeeGo Core
-        Active: True
-        Baseline: "1.1.80"
-        Platform: CORE
-        FileName: core-ia32-testing
-        Kernel: kernel-netbook
-        Architecture: ia32
-        Repos:
-            - core-testing
-    -   Name: MeeGo Core N900
-        Active: True
-        Baseline: "1.1.80"
-        Platform: CORE
-        FileName: core-armv7l-n900-testing
-        Kernel: kernel-n900
-        Desktop:
-        Architecture: armv7l
-        Repos:
-            - core-testing
     -   Name: MeeGo Netbook/Nettop
         PartSize: 3000
         Active: True
@@ -96,22 +108,37 @@ Configurations:
             - netbook
         ExtraPackages:
             - chromium
-    -   Name: MeeGo Core
+    -   Name: MeeGo Handset N900
         Active: True
         Baseline: "1.1.80"
-        Platform: CORE
-        FileName: core-ia32
-        Kernel: kernel
-        Architecture: ia32
-        Repos:
-            - core
-    -   Name: MeeGo Core N900
-        Active: True
-        Baseline: "1.1.80"
-        Platform: CORE
-        FileName: core-armv7l-n900
-        Kernel: kernel-adaptation-n900
-        Desktop:
+        Platform: N900
+        FileName: handset-armv7l-n900
         Architecture: armv7l
-        Repos:
-            - core
+        Desktop: DUI
+        Session: "/usr/bin/mcompositor"
+        Groups:
+            - Nokia N900 Support
+            - Nokia N900 Proprietary Support
+        ExtraPackages:
+            - xorg-x11-utils-xev
+            - u-boot-tools
+        PostScripts:
+            - inittab-n900
+            - fstab-n900
+            - u-boot
+
+    -   Name: MeeGo Handset MTF
+        Active: True
+        Baseline: "1.1.80"
+        Platform: MFLD
+        FileName: handset-ia32-mtf
+        Kernel: kernel-adaptation-medfield
+        Architecture: ia32
+        Desktop: DUI
+        Session: "/usr/bin/mcompositor"
+        Groups:
+            - Moorestown Support
+        PostScripts:
+            - kernel-handset
+            - kboot
+            - serial-mfld

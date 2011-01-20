@@ -13,9 +13,16 @@ ${metadata.Part}
 #end if
 rootpw ${metadata.RootPass} 
 xconfig --startxonboot
+#if $metadata.has_key("Bootloader") 
 bootloader --timeout=${metadata.BootloaderTimeout} --append="${metadata.BootloaderAppend}"
+#end if
 #if $metadata.has_key("Desktop")
-desktop --autologinuser=${metadata.DefaultUser}  --defaultdesktop=${metadata.Desktop} 
+desktop --autologinuser=${metadata.DefaultUser}  --defaultdesktop=${metadata.Desktop} #slurp
+#end if
+#if $metadata.has_key("Session")
+--session="${metadata.Session}"
+#else
+
 #end if
 user --name ${metadata.DefaultUser}  --groups audio,video --password ${metadata.DefaultUserPass} 
 

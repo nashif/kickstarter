@@ -1,0 +1,3 @@
+
+# open serial line console for embedded system
+echo "s0:235:respawn:/sbin/agetty -L 115200 ttyS2 vt100" >> /etc/inittab
