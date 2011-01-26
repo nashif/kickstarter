@@ -8,6 +8,11 @@ URL:		http://www.meego.com
 Source:		%{name}-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch:	noarch
+Requires:   PyYAML
+Requires:   python-urlgrabber
+Requires:   python-cheetah
+BuildRequires:  python-devel
+BuildRequires:  python-cheetah
 
 %description
 Create Configuration files to build meego images

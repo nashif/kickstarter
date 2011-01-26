@@ -17,7 +17,11 @@ TEMPLATE_MODS=$(patsubst %.tmpl,%.py,$(TEMPLATES))
 .SECONDARY: $(TEMPLATE_MODS)
 KS=$(wildcard *.ks)
 
-all: $(TEMPLATE_MODS)
+all: tmpls
+	    python setup.py build
+
+tmpls:
+	cd kickstarter; make
 
 %.py: %.tmpl
 	$(CHEETAH) compile --settings='useStackFrames=False' $<
