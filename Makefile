@@ -21,7 +21,7 @@ all: tmpls
 	    python setup.py build
 
 tmpls:
-	cd kickstarter; make
+	cd kickstart; make
 
 %.py: %.tmpl
 	$(CHEETAH) compile --settings='useStackFrames=False' $<
