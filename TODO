@@ -1,6 +1,10 @@
 
 List of things to do:
 
- - Add support for build IDs
- - Multi arch repos
- - ..
+ - Add support for build IDs (partially done)
+ - Multi arch repos (partially done)
+ - Support kickstart magic
+   Add addition options per image to describe how it should be created, i.e. image type and other options
+   The generated kickstart files should then have the line on top that can be evaluated by mic 
+ - Make it act as a module, so it can be imported into other scripts and generate kickstart file
+ - 
