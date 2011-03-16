@@ -49,8 +49,9 @@ repo   --name=${r} --baseurl=${rr.Url} ${save}
 @${g}
 #end for
 
-
+#if $metadata.has_key("Kernel")
 $metadata.Kernel
+#end if
 
 #for $e in $metadata.ExtraPackages
 ${e}
