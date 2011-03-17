@@ -218,11 +218,8 @@ Configurations:
         Architecture: ia32
         Desktop: DUI
         Session: "/usr/bin/mcompositor"
-        Daily: True
     -   Name: MeeGo Handset MTF
-        Daily: False
-        Schedule:
-            - Tuesday
+        Schedule: "* * * * 3"
         Active: True
         Baseline: "1.1.80"
         Platform: MFLD
