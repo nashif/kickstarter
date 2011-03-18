@@ -183,8 +183,6 @@ if __name__ == '__main__':
             cc = etree.Element('schedule')
             if img.has_key('Schedule'):
                 cc.text = img['Schedule']
-            else:
-                cc.text = "* * * * *"
             s.append(cc)
             root.append(s)
             str = etree.tostring(root, pretty_print=True)
