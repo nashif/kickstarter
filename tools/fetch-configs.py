@@ -15,9 +15,15 @@ for c in configs:
     dow = date.today().weekday()
     if c.find('schedule').text != '':
         schedule = c.find('schedule').text
-        if schedule == '*' or int(schedule) == dow:
+        if schedule == '*':
+            planned = True
+        elif schedule in ["0","1","2","3","4","5","6"] and int(schedule) == dow:
             planned = True
     else:
-        print "%s is not scheduled to be created today" %name
         planned = False
+
+    if planned:
+        print "%s is scheduled to be created today" %name
+    else:
+        print "%s is not scheduled to be created today" %name
 
