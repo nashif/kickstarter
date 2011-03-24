@@ -29,6 +29,7 @@ N900:
     Part: n900
     BootloaderTimeout: 
     BootloaderAppend: 
+    StartX: True
     Groups:
         - MeeGo Core
         - Minimal MeeGo X Window System
@@ -52,6 +53,7 @@ MFLD:
     BootloaderAppend: "ro pci=noearly console=tty1 console=ttyS0 console=ttyMFD2 earlyprintk=mrst loglevel=8 s0ix_latency=160"
     BootloaderTimeout: 2
     Bootloader: True
+    StartX: True
     Groups:
         - MeeGo Core
         - Minimal MeeGo X Window System
@@ -77,6 +79,7 @@ IVI:
     BootloaderAppend: "quiet"
     BootloaderTimeout: 0
     Session: "/usr/bin/startivi"
+    StartX: True
     Groups:
         - X for IVI
     Kernel: kernel-adaptation-intel-automotive
@@ -91,6 +94,7 @@ NETBOOK:
     Bootloader: True
     BootloaderAppend: "quiet"
     BootloaderTimeout: 0
+    StartX: True
     Groups:
         - X for Netbooks
         - Virtual Machine Support
@@ -112,6 +116,7 @@ Configurations:
         Platform: IVI
         Desktop: X-IVI
         FileName: ivi-ia32
+        Mic2Options: -f livecd
         Groups:
             - MeeGo IVI Desktop
             - MeeGo Base Development
@@ -128,6 +133,7 @@ Configurations:
         Platform: IVI
         Desktop: X-IVI
         FileName: ivi-ia32
+        Mic2Options: -f livecd
         Groups:
             - MeeGo IVI Desktop
             - MeeGo Base Development
@@ -144,6 +150,7 @@ Configurations:
         Platform: NETBOOK
         Desktop: meego
         FileName: netbook-ia32
+        Mic2Options: -f livecd
         Groups:
             - MeeGo Netbook Desktop
             - Base Double Byte IME Support
@@ -159,6 +166,7 @@ Configurations:
         Baseline: "1.1.80"
         Platform: N900
         FileName: handset-armv7l-n900-devel
+        Mic2Options: -f raw --save-kernel --arch=armv7l
         Architecture: armv7l
         Desktop: DUI
         Session: "/usr/bin/mcompositor"
@@ -178,6 +186,7 @@ Configurations:
         Baseline: "1.1.80"
         Platform: N900
         FileName: handset-armv7l-n900
+        Mic2Options: -f raw --save-kernel --arch=armv7l
         Architecture: armv7l
         Desktop: DUI
         Session: "/usr/bin/mcompositor"
@@ -198,6 +207,7 @@ Configurations:
         Baseline: "1.1.80"
         Platform: MFLD
         FileName: handset-ia32-mtf-devel
+        Mic2Options: -f nand
         Kernel: kernel-adaptation-medfield
         Architecture: ia32
         Desktop: DUI
@@ -214,6 +224,7 @@ Configurations:
         Baseline: "1.1.80"
         Platform: MFLD
         FileName: handset-ia32-pinetrail-mtf
+        Mic2Options: -f livecd
         Kernel: kernel
         Architecture: ia32
         Desktop: DUI
@@ -224,6 +235,7 @@ Configurations:
         Baseline: "1.1.80"
         Platform: MFLD
         FileName: handset-ia32-mtf
+        Mic2Options: -f nand
         Kernel: kernel-adaptation-medfield
         Architecture: ia32
         Desktop: DUI

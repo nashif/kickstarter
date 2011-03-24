@@ -54,7 +54,7 @@ class KSWriter():
                 full = full + plat[l]
             if img.has_key(l) and img[l]:
                 full = full + img[l]                    
-            lvald[l] = set(full)
+            lvald[l] = sorted(set(full), key=full.index)
             #print full
         conf.update(lvald)
         #print conf
@@ -93,7 +93,7 @@ class KSWriter():
                 r = {}
                 r['Name'] = repo['Name']
                 r['Url'] = repo['Url'].replace("@ARCH@", meta['Architecture'])
-		r['Url'] = repo['Url'].replace("@RELEASE@", meta['Baseline'])
+                r['Url'] = r['Url'].replace("@RELEASE@", meta['Baseline'])
                 new_repos.append(r)
         else:
             new_repos = repos
