@@ -10,7 +10,6 @@
 lang ${metadata.Language}
 keyboard ${metadata.Keyboard}
 timezone --utc ${metadata.Timezone}
-auth --useshadow --enablemd5
 #if $metadata.Part == ""
 part / --size ${metadata.PartSize} --ondisk sda --fstype=ext3
 #else
