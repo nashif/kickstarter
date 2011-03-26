@@ -9,6 +9,7 @@ Default:
     DefaultUser: meego
     DefaultUserPass: meego
     PartSize: 1900
+    FileSystem: ext3
     PostScripts:
         - rpm
     Groups:

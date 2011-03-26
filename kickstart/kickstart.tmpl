@@ -11,7 +11,7 @@ lang ${metadata.Language}
 keyboard ${metadata.Keyboard}
 timezone --utc ${metadata.Timezone}
 #if $metadata.Part == ""
-part / --size ${metadata.PartSize} --ondisk sda --fstype=ext3
+part / --size ${metadata.PartSize} --ondisk sda --fstype=${metadata.FileSystem}
 #else
 ${metadata.Part}
 #end if
