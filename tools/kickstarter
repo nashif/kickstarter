@@ -111,6 +111,49 @@ class KSWriter():
             f.write(a)
             f.close()
 
+
+def image_xml(root, img):
+    s = etree.Element("config")
+    c = etree.Element('name')
+    c.text = "%s.ks" %img['FileName'] 
+    s.append(c)
+    cc = etree.Element('path')
+    cc.text = "image-configs/%s.ks" %img['FileName'] 
+    s.append(cc)
+    cc = etree.Element('description')
+    cc.text = "%s" %img['Name'] 
+    s.append(cc)
+
+    if img.has_key('Architecture'):
+        cc = etree.Element('arch')
+        cc.text = "%s" %img['Architecture']
+        s.append(cc)
+
+    cc = etree.Element('md5')
+    cc.text = ""
+    s.append(cc)
+
+    cc = etree.Element('schedule')
+    if img.has_key('Schedule'):
+        cc.text = img['Schedule']
+    s.append(cc)
+    root.append(s)
+
+def create_xml(image_meta):
+    root = etree.Element("image-configs")
+    for img in image_meta['Configurations']:
+        image_xml(root,img)
+    for path in image_meta['ExternalConfigs']:
+        for f in os.listdir(path):
+            if '.yaml' in f:
+                fp = file('%s/%s' %(path, f), 'r')
+                local = yaml.load(fp)
+                conf = ks.parse(local)
+                image_xml(root,conf)
+
+    str = etree.tostring(root, pretty_print=True)
+    return str
+
 if __name__ == '__main__':
     parser = optparse.OptionParser()
 
@@ -154,52 +197,7 @@ if __name__ == '__main__':
                 ks.process_files(conf, r)
 
     if options.indexfile:
-        """
-<?xml version="1.0"?>
-<image-configs>
-  <config>
-    <name>developer.ks</name>
-    <path>image-config/developer.ks</path>
-    <description>Default Developer Moblin Configuration for netbooks, nettops and generic hardware</description>
-    <md5>e8184823bce48f72679743c2c47136dd</md5>
-  </config>
-  <config>
-    <name>default.ks</name>
-    <path>image-config/default.ks</path>
-    <description>Default Moblin Configuration for netbooks, nettops and generic hardware</description>
-    <md5>3526567cb67748f46464d295eb660931</md5>
-  </config>
-</image-configs>
-        """
-        root = etree.Element("image-configs")
-        for img in image_meta['Configurations']:
-            s = etree.Element("config")
-            c = etree.Element('name')
-            c.text = "%s.ks" %img['FileName'] 
-            s.append(c)
-            cc = etree.Element('path')
-            cc.text = "image-configs/%s.ks" %img['FileName'] 
-            s.append(cc)
-            cc = etree.Element('description')
-            cc.text = "%s" %img['Name'] 
-            s.append(cc)
-
-            if img.has_key('Architecture'):
-                cc = etree.Element('arch')
-                cc.text = "%s" %img['Architecture']
-                s.append(cc)
-
-            cc = etree.Element('md5')
-            cc.text = ""
-            s.append(cc)
-
-            cc = etree.Element('schedule')
-            if img.has_key('Schedule'):
-                cc.text = img['Schedule']
-            s.append(cc)
-            root.append(s)
-            str = etree.tostring(root, pretty_print=True)
-            f = open(options.indexfile, 'w')
-            f.write(str)
-            f.close()
-        sys.exit(0)
+        str = create_xml(image_meta)
+        f = open(options.indexfile, 'w')
+        f.write(str)
+        f.close()
