@@ -39,7 +39,6 @@ class KSWriter():
         
         
     def parse(self, img):
-        print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
         conf = copy.copy(image_meta['Default'])
         plat = copy.copy(image_meta[img['Platform']])
         conf.update(plat)
@@ -187,6 +186,7 @@ if __name__ == '__main__':
     r = repo_meta['Repositories']
     for img in image_meta['Configurations']:
         conf = ks.parse(img)
+        print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
         ks.process_files(conf, r)
     for path in image_meta['ExternalConfigs']:
         for f in os.listdir(path):
@@ -194,6 +194,7 @@ if __name__ == '__main__':
                 fp = file('%s/%s' %(path, f), 'r')
                 local = yaml.load(fp)
                 conf = ks.parse(local)
+                print "Creating %s (%s.ks)" %(conf['Name'], conf['FileName'] )
                 ks.process_files(conf, r)
 
     if options.indexfile:
