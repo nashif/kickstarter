@@ -145,6 +145,14 @@ if __name__ == '__main__':
     for img in image_meta['Configurations']:
         conf = ks.parse(img)
         ks.process_files(conf, r)
+    for path in image_meta['ExternalConfigs']:
+        for f in os.listdir(path):
+            if '.yaml' in f:
+                fp = file('%s/%s' %(path, f), 'r')
+                local = yaml.load(fp)
+                conf = ks.parse(local)
+                ks.process_files(conf, r)
+
     if options.indexfile:
         """
 <?xml version="1.0"?>

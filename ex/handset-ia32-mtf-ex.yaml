@@ -1,0 +1,17 @@
+Name: MeeGo Handset MTF
+Schedule: "* * * * 3"
+Active: True
+Baseline: "1.1.80"
+Platform: MFLD
+FileName: handset-ia32-mtf-ex
+Mic2Options: -f nand
+Kernel: kernel-adaptation-medfield
+Architecture: ia32
+Desktop: DUI
+Session: "/usr/bin/mcompositor"
+Groups:
+    - Moorestown Support
+PostScripts:
+    - kernel-handset
+    - kboot
+    - serial-mfld
