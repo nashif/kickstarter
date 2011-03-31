@@ -54,7 +54,7 @@ class KSWriter():
                 full = full + plat[l]
             if img.has_key(l) and img[l]:
                 full = full + img[l]                    
-            lvald[l] = set(full)
+            lvald[l] = sorted(set(full), key=full.index)
             #print full
         conf.update(lvald)
         #print conf
@@ -62,14 +62,14 @@ class KSWriter():
         for scr in conf['PostScripts']:
             f = open('./custom/scripts/%s.post' %scr, 'r')
             postscript += f.read()
-            postscript += "\n\n"
+            postscript += "\n"
             f.close()
 
         nochrootscript = ""              
         for scr in conf['NoChrootScripts']:
             f = open('./custom/scripts/%s.nochroot' %scr, 'r')
             nochrootscript += f.read()
-            nochrootscript += "\n\n"
+            nochrootscript += "\n"
             f.close()
 
         ptab = ""
@@ -93,7 +93,7 @@ class KSWriter():
                 r = {}
                 r['Name'] = repo['Name']
                 r['Url'] = repo['Url'].replace("@ARCH@", meta['Architecture'])
-		r['Url'] = repo['Url'].replace("@RELEASE@", meta['Baseline'])
+                r['Url'] = r['Url'].replace("@RELEASE@", meta['Baseline'])
                 new_repos.append(r)
         else:
             new_repos = repos
@@ -145,6 +145,14 @@ if __name__ == '__main__':
     for img in image_meta['Configurations']:
         conf = ks.parse(img)
         ks.process_files(conf, r)
+    for path in image_meta['ExternalConfigs']:
+        for f in os.listdir(path):
+            if '.yaml' in f:
+                fp = file('%s/%s' %(path, f), 'r')
+                local = yaml.load(fp)
+                conf = ks.parse(local)
+                ks.process_files(conf, r)
+
     if options.indexfile:
         """
 <?xml version="1.0"?>
@@ -175,6 +183,11 @@ if __name__ == '__main__':
             cc = etree.Element('description')
             cc.text = "%s" %img['Name'] 
             s.append(cc)
+
+            if img.has_key('Architecture'):
+                cc = etree.Element('arch')
+                cc.text = "%s" %img['Architecture']
+                s.append(cc)
 
             cc = etree.Element('md5')
             cc.text = ""
