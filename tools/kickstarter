@@ -140,8 +140,9 @@ def image_xml(root, img):
 
 def create_xml(image_meta):
     root = etree.Element("image-configs")
-    for img in image_meta['Configurations']:
-        image_xml(root,img)
+    if image_meta.has_key('Configurations'):
+        for img in image_meta['Configurations']:
+            image_xml(root,img)
     for path in image_meta['ExternalConfigs']:
         for f in os.listdir(path):
             if '.yaml' in f:
@@ -184,10 +185,11 @@ if __name__ == '__main__':
     image_meta = yaml.load(ks.image_stream)
 
     r = repo_meta['Repositories']
-    for img in image_meta['Configurations']:
-        conf = ks.parse(img)
-        print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
-        ks.process_files(conf, r)
+    if image_meta.has_key('Configurations'):
+        for img in image_meta['Configurations']:
+            conf = ks.parse(img)
+            print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
+            ks.process_files(conf, r)
     for path in image_meta['ExternalConfigs']:
         for f in os.listdir(path):
             if '.yaml' in f:
