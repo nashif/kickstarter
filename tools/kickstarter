@@ -121,6 +121,7 @@ def image_xml(root, img):
     s.append(cc)
     cc = etree.Element('description')
     cc.text = "%s" %img['Name'] 
+    print img['Name']
     s.append(cc)
 
     if img.has_key('Architecture'):
@@ -134,6 +135,7 @@ def image_xml(root, img):
 
     cc = etree.Element('schedule')
     if img.has_key('Schedule'):
+        print img['Schedule']
         cc.text = img['Schedule']
     s.append(cc)
     root.append(s)

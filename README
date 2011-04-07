@@ -1,12 +1,15 @@
 Install cheetah (http://www.cheetahtemplate.org/) templating system, PyYAML.
 
 run make
+sudo python setup.py install
 then run:
-python kickstarter.py -c <images.yaml> -r <repos.yaml>
+kickstarter -c <images.yaml> -r <repos.yaml>
 
 Example:
- python kickstarter.py  --configs configurations.yaml --repos repos.yaml 
- or run 'make ks'
+ kickstarter  --configs configurations.yaml --repos repos.yaml 
+
+ This configuration.yaml file is an example only, for meego kickstart files,
+ consult the image-configurations package
 
 Repo file:
 This file contains a list of repositories to be used in the kickstart files

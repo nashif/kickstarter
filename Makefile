@@ -28,7 +28,7 @@ tmpls:
 
 
 ks: $(TEMPLATES) configurations.yaml repos.yaml
-	python kickstarter.py -c configurations.yaml -r repos.yaml
+	kickstarter -c configurations.yaml -r repos.yaml
 
 tag:
 	git tag $(VERSION)
