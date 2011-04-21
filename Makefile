@@ -47,3 +47,4 @@ clean:
 	rm -f $(TEMPLATE_MODS)
 	rm -f $(addsuffix .bak,$(TEMPLATE_MODS))
 	rm -f *.pyc *.pyo
+	rm -rf build/ kickstart/kickstart.py kickstart/__init__.py *~ */*~
