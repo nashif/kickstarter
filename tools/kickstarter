@@ -207,12 +207,14 @@ if __name__ == '__main__':
             ks.process_files(conf, r)
     for path in image_meta['ExternalConfigs']:
         for f in os.listdir(path):
-            if '.yaml' in f:
+            if f.endswith('.yaml'):
                 fp = file('%s/%s' %(path, f), 'r')
                 local = yaml.load(fp)
                 conf = ks.parse(local)
                 print "Creating %s (%s.ks)" %(conf['Name'], conf['FileName'] )
                 ks.process_files(conf, r)
+            else:
+                print "WARNING: File '%s' ignored." % (f)
 
     if options.indexfile:
         str = create_xml(image_meta)
