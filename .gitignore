@@ -1,0 +1,4 @@
+build/
+kickstart/__init__.py
+kickstart/kickstart.py
+*~
