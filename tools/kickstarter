@@ -51,11 +51,10 @@ class KSWriter():
         pass
     def merge(*input):
         return list(reduce(set.union, input, set()))
-        
+
     def dump(self):
         print yaml.dump(yaml.load(self.stream))
-        
-        
+
     def parse(self, img):
         conf = copy.copy(image_meta['Default'])
         plat = copy.copy(image_meta[img['Platform']])
@@ -66,23 +65,23 @@ class KSWriter():
         for l in lval:
             full = []
             if image_meta['Default'].has_key(l) and image_meta['Default'][l]:
-                full = full + image_meta['Default'][l]                
+                full = full + image_meta['Default'][l]
             if plat.has_key(l) and plat[l]:
                 full = full + plat[l]
             if img.has_key(l) and img[l]:
-                full = full + img[l]                    
+                full = full + img[l]
             lvald[l] = sorted(set(full), key=full.index)
             #print full
         conf.update(lvald)
         #print conf
-        postscript = ""  
+        postscript = ""
         for scr in conf['PostScripts']:
             f = open('./custom/scripts/%s.post' %scr, 'r')
             postscript += f.read()
             postscript += "\n"
             f.close()
 
-        nochrootscript = ""              
+        nochrootscript = ""
         for scr in conf['NoChrootScripts']:
             f = open('./custom/scripts/%s.nochroot' %scr, 'r')
             nochrootscript += f.read()
@@ -90,12 +89,12 @@ class KSWriter():
             f.close()
 
         ptab = ""
-	for g in [ plat, img ]:
-	    if g.has_key("Part"):
-		f = open("./custom/part/%s" %g['Part'] )
-		ptab = f.read()
-		f.close()  
-            
+        for g in [ plat, img ]:
+            if g.has_key("Part"):
+                f = open("./custom/part/%s" %g['Part'] )
+                ptab = f.read()
+                f.close()
+
         conf['Part'] = ptab
         conf['Post'] = postscript
         conf['NoChroot'] = nochrootscript
@@ -114,7 +113,7 @@ class KSWriter():
                 new_repos.append(r)
         else:
             new_repos = repos
-                
+
         nameSpace = {'metadata': meta,  'repos': new_repos}
         t = kickstart(searchList=[nameSpace])
         a = str(t)
@@ -132,13 +131,13 @@ class KSWriter():
 def image_xml(root, img):
     s = etree.Element("config")
     c = etree.Element('name')
-    c.text = "%s.ks" %img['FileName'] 
+    c.text = "%s.ks" %img['FileName']
     s.append(c)
     cc = etree.Element('path')
-    cc.text = "image-configs/%s.ks" %img['FileName'] 
+    cc.text = "image-configs/%s.ks" %img['FileName']
     s.append(cc)
     cc = etree.Element('description')
-    cc.text = "%s" %img['Name'] 
+    cc.text = "%s" %img['Name']
     s.append(cc)
 
     if img.has_key('Architecture'):
@@ -185,8 +184,6 @@ if __name__ == '__main__':
                     help="generate index file")
 
     (options, args) = parser.parse_args()
-
-
 
     if options.configsfile is None or options.repofile is None:
         print "you need to provide meta files with --configs and --repos"
