@@ -108,6 +108,8 @@ class KSWriter():
             for repo in repos:
                 r = {}
                 r['Name'] = repo['Name']
+                if repo.has_key('Options'):
+                    r['Options'] = repo['Options']
                 r['Url'] = repo['Url'].replace("@ARCH@", meta['Architecture'])
                 r['Url'] = r['Url'].replace("@RELEASE@", meta['Baseline'])
                 new_repos.append(r)

@@ -35,17 +35,21 @@ desktop --autologinuser=${metadata.DefaultUser}  #slurp
 #end if
 user --name ${metadata.DefaultUser}  --groups audio,video --password ${metadata.DefaultUserPass} 
 
-#set $save = ""
+#set $options_global = ""
 #if $metadata.SaveRepos
-#set $save = "--save --debuginfo --source --gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-meego"
+#set $options_global = "--save --debuginfo --source --gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-meego"
 #end if
 #for $r in $metadata.Repos
 #for $rr in $repos
 #if $rr.Name == $r
+#set $options_repo = $options_global
+#if $rr.has_key("Options")
+#set $options_repo = $rr.Options
+#end if
 #if $rr.Name == "adobe"
 repo --name=${r} --baseurl=${rr.Url} --save
 #else
-repo --name=${r} --baseurl=${rr.Url} ${save}
+repo --name=${r} --baseurl=${rr.Url} ${options_repo}
 #end if
 #end if
 #end for
