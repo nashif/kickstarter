@@ -169,7 +169,7 @@ def create_xml(image_meta):
             image_xml(root,img)
     for path in image_meta['ExternalConfigs']:
         for f in os.listdir(path):
-            if '.yaml' in f:
+            if f.endswith('.yaml'):
                 fp = file('%s/%s' %(path, f), 'r')
                 local = yaml.load(fp)
                 conf = ks.parse(local)
