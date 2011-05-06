@@ -76,17 +76,23 @@ class KSWriter():
         #print conf
         postscript = ""
         for scr in conf['PostScripts']:
-            f = open('./custom/scripts/%s.post' %scr, 'r')
-            postscript += f.read()
-            postscript += "\n"
-            f.close()
+            if os.path.exists('./custom/scripts/%s.post' %scr):
+                f = open('./custom/scripts/%s.post' %scr, 'r')
+                postscript += f.read()
+                postscript += "\n"
+                f.close()
+            else:
+                print './custom/scripts/%s.post not found, skipping.' %scr
 
         nochrootscript = ""
         for scr in conf['NoChrootScripts']:
-            f = open('./custom/scripts/%s.nochroot' %scr, 'r')
-            nochrootscript += f.read()
-            nochrootscript += "\n"
-            f.close()
+            if os.path.exists('./custom/scripts/%s.nochroot' %scr):
+                f = open('./custom/scripts/%s.nochroot' %scr, 'r')
+                nochrootscript += f.read()
+                nochrootscript += "\n"
+                f.close()
+            else:
+                print './custom/scripts/%s.nochroot not found, skipping.' %scr
 
         ptab = ""
         for g in [ plat, img ]:
