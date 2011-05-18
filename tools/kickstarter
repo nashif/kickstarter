@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # Anas Nashif <anas.nashif@intel.com>
 import yaml,  sys
-
 import re, os
 from kickstart import kickstart
 

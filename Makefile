@@ -1,4 +1,3 @@
-# ex: set tabstop=4 noexpandtab: 
 VERSION = $(shell cat VERSION)
 NAME=kickstarter
 TAGVER = $(shell cat VERSION | sed -e "s/\([0-9\.]*\).*/\1/")

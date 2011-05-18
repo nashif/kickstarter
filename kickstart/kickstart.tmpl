@@ -20,7 +20,7 @@ rootpw ${metadata.RootPass}
 xconfig --startxonboot
 #end if
 #if $metadata.has_key("Bootloader") 
-bootloader --timeout=${metadata.BootloaderTimeout} --append="${metadata.BootloaderAppend}"
+bootloader --timeout=${metadata.BootloaderTimeout} --append="${metadata.BootloaderAppend}" ${metadata.BootloaderOptions}
 #end if
 #if $metadata.has_key("Desktop")
 desktop --autologinuser=${metadata.DefaultUser}  #slurp
