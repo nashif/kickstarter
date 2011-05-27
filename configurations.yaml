@@ -81,6 +81,7 @@ IVI:
     Bootloader: True
     BootloaderAppend: "quiet"
     BootloaderTimeout: 0
+    BootloaderOptions: --test
     Session: "/usr/bin/startivi"
     StartX: True
     Groups:

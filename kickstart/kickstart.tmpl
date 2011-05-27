@@ -19,9 +19,19 @@ rootpw ${metadata.RootPass}
 #if $metadata.has_key("StartX")
 xconfig --startxonboot
 #end if
-#if $metadata.has_key("Bootloader") 
-bootloader --timeout=${metadata.BootloaderTimeout} --append="${metadata.BootloaderAppend}" ${metadata.BootloaderOptions}
+#if $metadata.has_key("BootloaderTimeout")  or $metadata.has_key("BootloaderAppend") or $metadata.has_key("BootloaderOptions")
+bootloader #slurp
 #end if
+#if $metadata.has_key("BootloaderTimeout") 
+ --timeout=${metadata.BootloaderTimeout} #slurp
+#end if
+#if $metadata.has_key("BootloaderAppend") 
+ --append="${metadata.BootloaderAppend}" #slurp
+#end if
+#if $metadata.has_key("BootloaderOptions") 
+  ${metadata.BootloaderOptions}
+#end if
+
 #if $metadata.has_key("Desktop")
 desktop --autologinuser=${metadata.DefaultUser}  #slurp
 #if $metadata.Desktop != "None"
