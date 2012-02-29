@@ -1,6 +1,6 @@
 Summary:	Create kickstart files for meego images
 Name:		kickstarter
-Version:	0.1
+Version:	0.14
 Release:	1
 License:	GPLv2
 Group:		System/Base
