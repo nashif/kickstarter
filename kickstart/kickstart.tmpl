@@ -91,6 +91,14 @@ ${e}
 #end for
 %end
 
+#if $metadata.has_key("PrePackages")
+%prepackages
+#for $e in $metadata.PrePackages
+${e}
+#end for
+%end
+#end if
+
 %post
 ${metadata.Post}
 %end

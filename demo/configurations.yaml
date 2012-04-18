@@ -250,3 +250,5 @@ Configurations:
             - kernel-handset
             - kboot
             - serial-mfld
+        PrePackages:
+            - Answer2theUltimateQuestionOfEverything
