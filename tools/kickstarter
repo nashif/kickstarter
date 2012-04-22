@@ -190,6 +190,10 @@ if __name__ == '__main__':
                     help="repo meta file")
     parser.add_option("-i", "--index", type="string", dest="indexfile",
                     help="generate index file")
+    parser.add_option("-C", "--config", type="string", dest="config", default=None,
+                    help="Limit to this configuration file")
+    parser.add_option("-p", "--packages", action="store_true", dest="packages", default=False,
+                    help="return list of packages to be installed for this configuration")
 
     (options, args) = parser.parse_args()
 
@@ -211,22 +215,38 @@ if __name__ == '__main__':
     if image_meta.has_key('Configurations'):
         for img in image_meta['Configurations']:
             conf = ks.parse(img)
-            if conf.has_key('Active') and conf['Active']:
-                print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
-                ks.process_files(conf, r)
+            if options.config:
+                if img.has_key('FileName') and options.config == img['FileName']:
+                    print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
+                    ks.process_files(conf, r)
+                    break
             else:
-                print "%s is inactive, not generate %s this time" %(img['Name'], img['FileName'] )
+                if conf.has_key('Active') and conf['Active'] :
+                    print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
+                    ks.process_files(conf, r)
+                else:
+                    print "%s is inactive, not generating %s at this time" %(img['Name'], img['FileName'] )
     for path in image_meta['ExternalConfigs']:
         for f in os.listdir(path):
             if f.endswith('.yaml'):
                 fp = file('%s/%s' %(path, f), 'r')
                 local = yaml.load(fp)
                 conf = ks.parse(local)
-                if conf.has_key('Active') and conf['Active']:
-                    print "Creating %s (%s.ks)" %(conf['Name'], conf['FileName'] )
-                    ks.process_files(conf, r)
+                if options.config:
+                    if options.config == conf['FileName']:
+                        if options.packages:
+                            print conf['Groups']
+                            print conf['ExtraPackages']
+                        else:
+                            print "Creating %s (%s.ks)" %(conf['Name'], conf['FileName'] )
+                            ks.process_files(conf, r)
+                            break
                 else:
-                    print "%s is inactive, not generate %s this time" %(conf['Name'], conf['FileName'] )
+                    if conf.has_key('Active') and conf['Active']:
+                        print "Creating %s (%s.ks)" %(conf['Name'], conf['FileName'] )
+                        ks.process_files(conf, r)
+                    else:
+                        print "%s is inactive, not generate %s this time" %(conf['Name'], conf['FileName'] )
             else:
                 print "WARNING: File '%s' ignored." % (f)
 
