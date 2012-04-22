@@ -15,6 +15,6 @@ setup(name='kickstarter',
       author_email='anas.nashif@intel.com',
       url='http://meego.com/',
       scripts=['tools/kickstarter'],
-      packages=['kickstart']
+      packages=['kickstart', 'kswriter']
      )
 
