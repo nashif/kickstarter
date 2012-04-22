@@ -2,14 +2,12 @@
 # Anas Nashif <anas.nashif@intel.com>
 import yaml,  sys
 import re, os
-from kickstart import kickstart
 from kswriter import KSWriter
 
 import copy
 import time
 import optparse
 from time import gmtime, strftime
-import errno
 try:
   from lxml import etree
 except ImportError:
@@ -31,13 +29,6 @@ except ImportError:
         except ImportError:
           print("Failed to import ElementTree from any known place")
 
-def mkdir_p(path):
-    try:
-        os.makedirs(path)
-    except OSError as exc: # Python >2.5
-        if exc.errno == errno.EEXIST:
-            pass
-        else: raise
 
 def image_xml(root, img):
     s = etree.Element("config")
@@ -88,7 +79,7 @@ if __name__ == '__main__':
 
     parser.add_option("-c", "--configs", type="string", dest="configsfile",
                     help="configuration meta file")
-    parser.add_option("-o", "--outdir", type="string", dest="outdir",
+    parser.add_option("-o", "--outdir", type="string", dest="outdir", default=".",
                     help="outdir")
     parser.add_option("-r", "--repos", type="string", dest="repofile",
                     help="repo meta file")
@@ -105,51 +96,8 @@ if __name__ == '__main__':
         print "you need to provide meta files with --configs and --repos"
         sys.exit(1)
 
-    outdir = ""
-    if options.outdir is None:
-        outdir = "."
-    else:
-        outdir = options.outdir
-
-    ks = KSWriter(options.configsfile, options.repofile, outdir)
-    r = ks.repo_meta['Repositories']
-    if ks.image_meta.has_key('Configurations'):
-        for img in ks.image_meta['Configurations']:
-            conf = ks.parse(img)
-            if options.config:
-                if img.has_key('FileName') and options.config == img['FileName']:
-                    print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
-                    ks.process_files(conf, r)
-                    break
-            else:
-                if conf.has_key('Active') and conf['Active'] :
-                    print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
-                    ks.process_files(conf, r)
-                else:
-                    print "%s is inactive, not generating %s at this time" %(img['Name'], img['FileName'] )
-    for path in ks.image_meta['ExternalConfigs']:
-        for f in os.listdir(path):
-            if f.endswith('.yaml'):
-                fp = file('%s/%s' %(path, f), 'r')
-                local = yaml.load(fp)
-                conf = ks.parse(local)
-                if options.config:
-                    if options.config == conf['FileName']:
-                        if options.packages:
-                            print conf['Groups']
-                            print conf['ExtraPackages']
-                        else:
-                            print "Creating %s (%s.ks)" %(conf['Name'], conf['FileName'] )
-                            ks.process_files(conf, r)
-                            break
-                else:
-                    if conf.has_key('Active') and conf['Active']:
-                        print "Creating %s (%s.ks)" %(conf['Name'], conf['FileName'] )
-                        ks.process_files(conf, r)
-                    else:
-                        print "%s is inactive, not generate %s this time" %(conf['Name'], conf['FileName'] )
-            else:
-                print "WARNING: File '%s' ignored." % (f)
+    ks = KSWriter(options.configsfile, options.repofile, options.outdir, options.config, options.packages)
+    ks.generate()
 
     if options.indexfile:
         str = create_xml(ks.image_meta)

@@ -1,16 +1,28 @@
 #!/usr/bin/python
-
 import copy
 import time
 import yaml
-import os
+import os, re
 import sys
+import errno
+
+from kickstart import kickstart
+
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc: # Python >2.5
+        if exc.errno == errno.EEXIST:
+            pass
+        else: raise
 
 class KSWriter():
-    def __init__(self,  im, rep, out):
+    def __init__(self,  im, rep, out, config, packages):
         self.image_filename = im
         self.repo_filename = rep
         self.outdir = out
+        self.packages = False
+        self.config = None
         self.image_stream = file(self.image_filename, 'r')
         self.repo_stream = file(self.repo_filename, 'r')
         self.extra = {}
@@ -102,3 +114,42 @@ class KSWriter():
             f.write(a)
             f.close()
 
+    def generate(self):
+        r = self.repo_meta['Repositories']
+        if self.image_meta.has_key('Configurations'):
+            for img in self.image_meta['Configurations']:
+                conf = self.parse(img)
+                if options.config:
+                    if img.has_key('FileName') and options.config == img['FileName']:
+                        print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
+                        self.process_files(conf, r)
+                        break
+                else:
+                    if conf.has_key('Active') and conf['Active'] :
+                        print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
+                        self.process_files(conf, r)
+                    else:
+                        print "%s is inactive, not generating %s at this time" %(img['Name'], img['FileName'] )
+        for path in self.image_meta['ExternalConfigs']:
+            for f in os.listdir(path):
+                if f.endswith('.yaml'):
+                    fp = file('%s/%s' %(path, f), 'r')
+                    local = yaml.load(fp)
+                    conf = self.parse(local)
+                    if self.config:
+                        if self.config == conf['FileName']:
+                            if self.packages:
+                                print conf['Groups']
+                                print conf['ExtraPackages']
+                            else:
+                                print "Creating %s (%s.ks)" %(conf['Name'], conf['FileName'] )
+                                self.process_files(conf, r)
+                                break
+                    else:
+                        if conf.has_key('Active') and conf['Active']:
+                            print "Creating %s (%s.ks)" %(conf['Name'], conf['FileName'] )
+                            self.process_files(conf, r)
+                        else:
+                            print "%s is inactive, not generate %s this time" %(conf['Name'], conf['FileName'] )
+                else:
+                    print "WARNING: File '%s' ignored." % (f)
