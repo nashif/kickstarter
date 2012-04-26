@@ -17,19 +17,18 @@ def mkdir_p(path):
         else: raise
 
 class KSWriter():
-    def __init__(self,  im, rep, out, config, packages):
-        self.image_filename = im
-        self.repo_filename = rep
-        self.outdir = out
-        self.packages = False
-        self.config = None
+    def __init__(self, configs=None, repos=None, outdir=".", config=None, packages=False):
+        self.image_filename = configs
+        self.repo_filename = repos
+        self.outdir = outdir
+        self.packages = packages
+        self.config = config
         self.image_stream = file(self.image_filename, 'r')
         self.repo_stream = file(self.repo_filename, 'r')
         self.extra = {}
         self.repo_meta = yaml.load(self.repo_stream)
         self.image_meta = yaml.load(self.image_stream)
 
-        pass
     def merge(*input):
         return list(reduce(set.union, input, set()))
 
@@ -115,12 +114,13 @@ class KSWriter():
             f.close()
 
     def generate(self):
+        out = {}
         r = self.repo_meta['Repositories']
         if self.image_meta.has_key('Configurations'):
             for img in self.image_meta['Configurations']:
                 conf = self.parse(img)
-                if options.config:
-                    if img.has_key('FileName') and options.config == img['FileName']:
+                if self.config:
+                    if img.has_key('FileName') and self.config == img['FileName']:
                         print "Creating %s (%s.ks)" %(img['Name'], img['FileName'] )
                         self.process_files(conf, r)
                         break
@@ -139,8 +139,8 @@ class KSWriter():
                     if self.config:
                         if self.config == conf['FileName']:
                             if self.packages:
-                                print conf['Groups']
-                                print conf['ExtraPackages']
+                                out['groups'] = conf['Groups']
+                                out['packages'] = conf['ExtraPackages']
                             else:
                                 print "Creating %s (%s.ks)" %(conf['Name'], conf['FileName'] )
                                 self.process_files(conf, r)
@@ -153,3 +153,4 @@ class KSWriter():
                             print "%s is inactive, not generate %s this time" %(conf['Name'], conf['FileName'] )
                 else:
                     print "WARNING: File '%s' ignored." % (f)
+        return out
